@@ -23,11 +23,6 @@
 		</executions>
 		<configuration>
 			<mainClass>net.seibertmedia.Botrunner</mainClass>
-			<arguments>
-				<argument>bot=german</argument>
-				<argument>action=chat</argument>
-				<argument>trace=false</argument>
-			</arguments>
 		</configuration>
 	</plugin>
 	</plugins>
