@@ -1,12 +1,9 @@
 package net.seibertmedia.bots;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.alicebot.ab.Bot;
@@ -27,7 +24,7 @@ public class AliceHandler extends TelegramLongPollingBot {
 
   public static final int CHECK_SESSIONS = 60;
 
-  private Map<Long, Chat> chats = new HashMap();
+  private Map<Integer, Chat> chats = new HashMap();
 
   private org.alicebot.ab.Bot bot;
 
@@ -44,7 +41,7 @@ public class AliceHandler extends TelegramLongPollingBot {
         new Runnable() {
           @Override public void run() {
             logger.debug("Check active chats {}" , chats.size());
-            for (Long aLong : chats.keySet()) {
+            for (Integer aLong : chats.keySet()) {
               Chat chat = chats.get(aLong);
               try {
 
@@ -80,18 +77,19 @@ public class AliceHandler extends TelegramLongPollingBot {
 
   private void handleIncomingMessage(final Message message) {
 
+    Integer userId = message.getFrom().getId();
     Chat chat;
-    if (chats.containsKey(message.getChatId())) {
-      logger.debug("existing chat {}", message.getChatId());
-      chat = chats.get(message.getChatId());
+    if (chats.containsKey(userId)) {
+      logger.debug("existing chat {}", userId);
+      chat = chats.get(userId);
     } else {
-      logger.debug("new chat {}", message.getChatId());
-      chat = new Chat(bot, false, message.getChatId().toString());
-      chats.put(message.getChatId(), chat);
+      logger.debug("new chat {}", userId);
+      chat = new Chat(bot, false, userId.toString());
+      chats.put(userId, chat);
     }
 
     SendMessage sendMessage = new SendMessage();
-    sendMessage.setChatId(message.getChatId().toString());
+    sendMessage.setChatId(String.valueOf(message.getChatId()));
     // sendMessage.setReplayToMessageId(message.getMessageId());
     sendMessage.setText(chat.multisentenceRespond(message.getText()));
     try {
