@@ -23,6 +23,16 @@
 		</executions>
 		<configuration>
 			<mainClass>net.seibertmedia.Botrunner</mainClass>
+			<systemProperties>
+				<systemProperty>
+					<key>user.language</key>
+					<value>de</value>
+				</systemProperty>
+				<systemProperty>
+					<key>user.country</key>
+					<value>DE</value>
+				</systemProperty>
+			</systemProperties>
 		</configuration>
 	</plugin>
 	</plugins>
