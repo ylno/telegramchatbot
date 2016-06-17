@@ -1,3 +1,5 @@
 telegram-bot-key: {please define}
 bot-name: {please define, for example alice}
 bot-path: {please define, for example /opt/bot/root}
+language: de
+country: DE
