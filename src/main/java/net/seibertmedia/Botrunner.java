@@ -1,10 +1,14 @@
 package net.seibertmedia;
 
-import net.seibertmedia.bots.AliceHandler;
+import static java.util.Locale.setDefault;
+
+import java.util.Locale;
+import java.util.Properties;
+
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 
-import java.util.Properties;
+import net.seibertmedia.bots.AliceHandler;
 
 public class Botrunner {
 
@@ -19,6 +23,9 @@ public class Botrunner {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
         Properties properties = Botpropperties.readProperties();
+
+        Locale l = new Locale("de", "DE");
+        setDefault(l);
 
         checkProperties(properties);
 
