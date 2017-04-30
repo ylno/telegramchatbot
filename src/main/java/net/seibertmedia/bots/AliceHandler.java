@@ -1,11 +1,5 @@
 package net.seibertmedia.bots;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import org.alicebot.ab.Bot;
 import org.alicebot.ab.Chat;
 import org.slf4j.Logger;
@@ -15,6 +9,12 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AliceHandler extends TelegramLongPollingBot {
 
@@ -91,7 +91,12 @@ public class AliceHandler extends TelegramLongPollingBot {
     SendMessage sendMessage = new SendMessage();
     sendMessage.setChatId(String.valueOf(message.getChatId()));
     // sendMessage.setReplayToMessageId(message.getMessageId());
-    sendMessage.setText(chat.multisentenceRespond(message.getText()));
+
+    logger.info("request from {}: {}", message.getChatId(), message.getText());
+
+    String answer = chat.multisentenceRespond(message.getText());
+    logger.info("answer to {}: {}", message.getChatId(), answer);
+    sendMessage.setText(answer);
     try {
       sendMessage(sendMessage);
     } catch (TelegramApiException e) {
