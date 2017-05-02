@@ -89,12 +89,16 @@ public class AliceHandler extends TelegramLongPollingBot {
     }
 
     SendMessage sendMessage = new SendMessage();
+
     sendMessage.setChatId(String.valueOf(message.getChatId()));
     // sendMessage.setReplayToMessageId(message.getMessageId());
 
     logger.info("request from {}: {}", message.getChatId(), message.getText());
 
     String answer = chat.multisentenceRespond(message.getText());
+    if (answer.contains("<")) {
+      sendMessage.enableHtml(true);
+    }
     logger.info("answer to {}: {}", message.getChatId(), answer);
     sendMessage.setText(answer);
     try {
