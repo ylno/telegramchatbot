@@ -103,6 +103,8 @@ public class AliceHandler extends TelegramLongPollingBot {
       sendMessage(sendMessage);
     } catch (TelegramApiException e) {
       logger.error("Error", e);
+    } catch (Exception e) {
+      logger.error("Error", e);
     }
   }
 
