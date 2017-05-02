@@ -98,10 +98,11 @@ public class AliceHandler extends TelegramLongPollingBot {
     String answer = chat.multisentenceRespond(message.getText());
     logger.info("answer to {}: {}", message.getChatId(), answer);
     sendMessage.setText(answer);
+
     try {
       sendMessage(sendMessage);
     } catch (TelegramApiException e) {
-      e.printStackTrace();
+      logger.error("Error", e);
     }
   }
 
