@@ -136,8 +136,8 @@ public class AliceHandler extends TelegramLongPollingBot {
 
     List<KeyboardRow> keyboard = new ArrayList<>();
     KeyboardRow keyboardFirstRow = new KeyboardRow();
-    keyboardFirstRow.add("/HILFE");
-    keyboardFirstRow.add("/ICH");
+    keyboardFirstRow.add("HILFE");
+    keyboardFirstRow.add("ICH");
 //    KeyboardRow keyboardSecondRow = new KeyboardRow();
 //    keyboardSecondRow.add(getSettingsCommand(language));
 //    keyboardSecondRow.add(getRateCommand(language));
