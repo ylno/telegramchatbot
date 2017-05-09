@@ -4,13 +4,17 @@ import org.alicebot.ab.Bot;
 import org.alicebot.ab.Chat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -88,14 +92,19 @@ public class AliceHandler extends TelegramLongPollingBot {
       chats.put(userId, chat);
     }
 
+
     SendMessage sendMessage = new SendMessage();
 
     sendMessage.setChatId(String.valueOf(message.getChatId()));
     // sendMessage.setReplayToMessageId(message.getMessageId());
+    sendMessage.enableMarkdown(true);
+    sendMessage.setReplyMarkup(getMainMenuKeyboard());
+    sendMessage.setReplyToMessageId(message.getMessageId());
 
     logger.info("request from {}: {}", message.getChatId(), message.getText());
 
     String answer = chat.multisentenceRespond(message.getText());
+
 
     logger.info("answer to {}: {}", message.getChatId(), answer);
     sendMessage.setText(answer);
@@ -110,13 +119,33 @@ public class AliceHandler extends TelegramLongPollingBot {
   }
 
   public String getBotUsername() {
-    return "alicebot";
+    return "smalicebot";
   }
 
   @Override
   public String getBotToken() {
 
     return botToken;
+  }
+
+  private static ReplyKeyboardMarkup getMainMenuKeyboard() {
+    ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+    replyKeyboardMarkup.setSelective(true);
+    replyKeyboardMarkup.setResizeKeyboard(true);
+    replyKeyboardMarkup.setOneTimeKeyboad(false);
+
+    List<KeyboardRow> keyboard = new ArrayList<>();
+    KeyboardRow keyboardFirstRow = new KeyboardRow();
+    keyboardFirstRow.add("/HILFE");
+    keyboardFirstRow.add("/ICH");
+//    KeyboardRow keyboardSecondRow = new KeyboardRow();
+//    keyboardSecondRow.add(getSettingsCommand(language));
+//    keyboardSecondRow.add(getRateCommand(language));
+    keyboard.add(keyboardFirstRow);
+//    keyboard.add(keyboardSecondRow);
+    replyKeyboardMarkup.setKeyboard(keyboard);
+
+    return replyKeyboardMarkup;
   }
 
 
