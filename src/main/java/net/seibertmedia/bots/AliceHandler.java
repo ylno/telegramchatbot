@@ -96,10 +96,8 @@ public class AliceHandler extends TelegramLongPollingBot {
     SendMessage sendMessage = new SendMessage();
 
     sendMessage.setChatId(String.valueOf(message.getChatId()));
-    // sendMessage.setReplayToMessageId(message.getMessageId());
 //    sendMessage.enableMarkdown(true);
     sendMessage.setReplyMarkup(getMainMenuKeyboard());
-    sendMessage.setReplyToMessageId(message.getMessageId());
 
     logger.info("request from {}: {}", message.getChatId(), message.getText());
 
@@ -138,6 +136,8 @@ public class AliceHandler extends TelegramLongPollingBot {
     KeyboardRow keyboardFirstRow = new KeyboardRow();
     keyboardFirstRow.add("HILFE");
     keyboardFirstRow.add("ICH");
+    keyboardFirstRow.add("NEWS");
+    keyboardFirstRow.add("WETTER");
 //    KeyboardRow keyboardSecondRow = new KeyboardRow();
 //    keyboardSecondRow.add(getSettingsCommand(language));
 //    keyboardSecondRow.add(getRateCommand(language));
