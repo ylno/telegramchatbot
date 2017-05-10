@@ -1,6 +1,7 @@
 package net.seibertmedia;
 
 import net.seibertmedia.bots.AliceHandler;
+import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
@@ -17,11 +18,13 @@ public class Botrunner {
 
   public static final String TELEGRAM_BOT_KEY = "telegram-bot-key";
 
-    public static final String LANGUAGE = "language";
+  public static final String LANGUAGE = "language";
 
-    public static final String COUNTRY = "country";
+  public static final String COUNTRY = "country";
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
+
+    ApiContextInitializer.init();
 
     TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
@@ -34,11 +37,7 @@ public class Botrunner {
     checkProperties(properties);
 
     try {
-      telegramBotsApi.registerBot(
-          new AliceHandler(
-              properties.getProperty(BOT_NAME),
-              properties.getProperty(BOT_PATH),
-              properties.getProperty(TELEGRAM_BOT_KEY)));
+      telegramBotsApi.registerBot(new AliceHandler(properties.getProperty(BOT_NAME), properties.getProperty(BOT_PATH), properties.getProperty(TELEGRAM_BOT_KEY)));
     } catch (TelegramApiException e) {
       e.printStackTrace();
     }
