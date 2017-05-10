@@ -80,7 +80,7 @@ public class AliceHandler extends TelegramLongPollingBot {
   }
 
   private void handleIncomingMessage(final Message message) {
-
+    logger.debug("incoming message {}", message);
     Integer userId = message.getFrom().getId();
     Chat chat;
     if (chats.containsKey(userId)) {
@@ -97,7 +97,7 @@ public class AliceHandler extends TelegramLongPollingBot {
 
     sendMessage.setChatId(String.valueOf(message.getChatId()));
     // sendMessage.setReplayToMessageId(message.getMessageId());
-    sendMessage.enableMarkdown(true);
+//    sendMessage.enableMarkdown(true);
     sendMessage.setReplyMarkup(getMainMenuKeyboard());
     sendMessage.setReplyToMessageId(message.getMessageId());
 

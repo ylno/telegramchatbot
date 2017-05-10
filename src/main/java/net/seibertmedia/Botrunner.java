@@ -1,14 +1,13 @@
 package net.seibertmedia;
 
-import static java.util.Locale.setDefault;
+import net.seibertmedia.bots.AliceHandler;
+import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import java.util.Locale;
 import java.util.Properties;
 
-import org.telegram.telegrambots.TelegramApiException;
-import org.telegram.telegrambots.TelegramBotsApi;
-
-import net.seibertmedia.bots.AliceHandler;
+import static java.util.Locale.setDefault;
 
 public class Botrunner {
 
